@@ -1,39 +1,17 @@
 <?php
+
 namespace GoalioMailService\Mail\Service;
 
 use Zend\Mime\Mime;
 use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\Mail\Message as MailMessage;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
+use Zend\View\Renderer\RendererInterface;
+use Zend\Mail\Transport\TransportInterface;
 
-class Message implements ServiceManagerAwareInterface {
-
-    /**
-     *
-     * @var ServiceManager
-     */
-    protected $serviceManager;
-
-    /**
-     *
-     * @param ServiceManager $serviceManager
-     * @return AbstractService
-     */
-    public function setServiceManager(ServiceManager $serviceManager) {
-        $this->serviceManager = $serviceManager;
-        return $this;
-    }
-
-    /**
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager() {
-        return $this->serviceManager;
-    }
-
+class Message
+{
     /**
      *
      * @var \Zend\View\Renderer\RendererInterface
@@ -45,6 +23,14 @@ class Message implements ServiceManagerAwareInterface {
      * @var \Zend\Mail\Transport\TransportInterface
      */
     protected $transport;
+
+
+    public function __construct(RendererInterface $renderer, TransportInterface $transport)
+    {
+        $this->setRenderer($renderer);
+        $this->setTransport($transport);
+    }
+
 
     /**
      * Return a HTML message ready to be sent
@@ -116,11 +102,6 @@ class Message implements ServiceManagerAwareInterface {
      * @return \Zend\View\Renderer\RendererInterface
      */
     public function getRenderer() {
-        if($this->renderer === null) {
-            $serviceManager = $this->getServiceManager();
-            $this->renderer = $serviceManager->get('goaliomailservice_renderer');
-        }
-
         return $this->renderer;
     }
 
@@ -129,7 +110,7 @@ class Message implements ServiceManagerAwareInterface {
      *
      * @return $this
      */
-    public function setRenderer($renderer) {
+    public function setRenderer(RendererInterface $renderer) {
         $this->renderer = $renderer;
 
         return $this;
@@ -154,7 +135,7 @@ class Message implements ServiceManagerAwareInterface {
      *
      * @return $this
      */
-    public function setTransport($transport) {
+    public function setTransport(TransportInterface $transport) {
         $this->transport = $transport;
 
         return $this;
