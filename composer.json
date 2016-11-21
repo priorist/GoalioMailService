@@ -1,5 +1,5 @@
 {
-    "name": "goalio/goalio-mailservice",
+    "name": "priorist/zf-goalio-mailservice",
     "description": "Provide configurable Mail Transport Factories for ZF2",
     "type": "library",
     "license": "BSD-3-Clause",
@@ -12,6 +12,11 @@
             "name": "Philipp Dobrigkeit",
             "email": "p.dobrigkeit@goalio.de",
             "homepage": "http://www.goalio.de"
+        },
+        {
+            "name": "André Simmert",
+            "email": "contact@priorist.com",
+            "homepage": "https://priorist.com"
         }
     ],
     "require": {
